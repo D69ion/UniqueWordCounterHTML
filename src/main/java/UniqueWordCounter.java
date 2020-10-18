@@ -1,12 +1,17 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class WordCounter {
+/**
+ * Класс, подсчитывающий кол-во вхождений уникальных слов в тексте
+ */
+public class UniqueWordCounter {
+    /** Словарь, хранящий уникальные слова и их кол-во вхождений */
     private Map<String, Integer> dictionary;
+    /** Массив символов, являющихся разделителями */
     private final char[] separators=  {' ', ',', '.', '!', '?','"', ';', ':', '[', ']', '(', ')', '\n',
             '\r', '\t'};
 
-    public WordCounter() {
+    public UniqueWordCounter() {
         this.dictionary = new HashMap<String, Integer>();
     }
 
@@ -18,7 +23,11 @@ public class WordCounter {
         this.dictionary = dictionary;
     }
 
-    public void Calc(String text){
+    /**
+     * Производит расчет кол-ва вхождений уникальных слов
+     * @param text - входная строка, содержащая текст
+     * */
+    public void CalcUniqueWords(String text){
         for (char separator : separators) {
             text = text.replace(separator, ' ');
         }
@@ -33,6 +42,10 @@ public class WordCounter {
         }
     }
 
+    /**
+     * Создает строковое представление словаря уникальных слов
+     * @return возвращает строку, содержащую все уникальные слова с кол-вом вхождений
+     */
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
