@@ -31,7 +31,7 @@ public class Main {
                 }
             }
         } catch (NullPointerException e) {
-            System.out.println("");
+            System.out.println("Failed to load html page");
             LOGGER.error("Failed to load html page", e);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
