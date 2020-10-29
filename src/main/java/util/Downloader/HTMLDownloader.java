@@ -3,12 +3,12 @@ package util.Downloader;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import util.Validator.FilePathValidator;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Optional;
 
 public class HTMLDownloader {
@@ -19,17 +19,13 @@ public class HTMLDownloader {
         Document document = null;
         try {
             document = Optional.of(Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36").get()).orElseThrow(NullPointerException::new);
-            //TODO: не сохраняется в файл, либо отказано в доступе при создании в корень, либо не удается найти файл при сохранении в несуществующую папку
-            File htmlFile = new File("C://" + document.title() + ".html");
+            File htmlFile = new File(HTMLDownloader.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath() + "/" + document.title() + ".html");//"C://" + document.title() + ".html");
             htmlFile.createNewFile();
             try(BufferedWriter writer =  new BufferedWriter(new FileWriter(htmlFile))){
                 writer.write(document.outerHtml());
             }
-            catch (IOException e){
-                LOGGER.error("Html ", e);
-            }
-        } catch (IOException e) {
-            LOGGER.error("Html loading problem", e);
+        } catch (IOException | URISyntaxException e) {
+            LOGGER.error("Html downloading problem", e);
         }
         return document;
     }

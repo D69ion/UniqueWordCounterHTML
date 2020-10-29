@@ -4,8 +4,8 @@ import util.Parser.HTMLParser;
 import util.Validator.FilePathValidator;
 import util.Validator.URLValidator;
 
+import java.net.URISyntaxException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -39,4 +39,5 @@ public class Main {
         }
 
     }
+
 }
